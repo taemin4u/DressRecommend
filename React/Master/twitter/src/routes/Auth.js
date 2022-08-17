@@ -1,46 +1,62 @@
-import React, { useState } from 'react';
+import React from 'react';
+import AuthForm from '../components/AuthForm';
 import { authService, firebaseInstance } from '../fbase';
+import styled, { keyframes } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCat } from '@fortawesome/free-solid-svg-icons';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import '../basic.css';
+
+const AuthContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+`;
+
+const ButtonContainer = styled.div`
+  margin-top: 15px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+
+  button[name='google'] {
+    background-color: #3b1e1e;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 10px;
+  }
+
+  button[name='github'] {
+    margin-top: 5px;
+    background-color: #3b1e1e;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 10px;
+  }
+`;
+
+const Button = styled.button`
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  background: none;
+  font-size: 20px;
+  &:hover {
+    transition: transform 0.2s ease-in; // transition 주기
+    transform: scale(1.2); // transform
+  }
+`;
+
+const Title = styled.h1`
+  font-size: 50px;
+`;
 
 function Auth() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [newAccount, setNewAccount] = useState(true);
-  const [error, setError] = useState('');
-
-  const onChange = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    if (name === 'email') {
-      setEmail(value);
-    }
-    if (name === 'password') {
-      setPassword(value);
-    }
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    let data;
-    try {
-      if (newAccount) {
-        // 계정 생성
-        data = await authService.createUserWithEmailAndPassword(
-          email,
-          password
-        );
-      } else {
-        // 로그인
-        data = await authService.signInWithEmailAndPassword(email, password);
-      }
-      console.log(data);
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const toggleAccount = () => setNewAccount((cur) => !cur);
-
   const onSocialClick = async (e) => {
+    // Continue with Google or Github
     const name = e.target.name;
     let provider;
     if (name === 'google') {
@@ -51,37 +67,21 @@ function Auth() {
     await authService.signInWithPopup(provider);
   };
   return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <input
-          name="email"
-          type="text"
-          placeholder="Email"
-          required
-          value={email}
-          onChange={onChange}
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          required
-          value={password}
-          onChange={onChange}
-        />
-        <input type="submit" value={newAccount ? 'Create Account' : 'Log In'} />
-        {error}
-      </form>
-      <span onClick={toggleAccount}>{newAccount ? 'Sign in' : 'Log In'}</span>
-      <div>
-        <button onClick={onSocialClick} name="google">
-          Continue with Google
-        </button>
-        <button onClick={onSocialClick} name="github">
-          Continue with Github
-        </button>
-      </div>
-    </div>
+    <AuthContainer>
+      <Title>CatWitter</Title>
+      <FontAwesomeIcon icon={faCat} className="catIcon" />
+      <AuthForm />
+      <ButtonContainer>
+        <Button onClick={onSocialClick} name="google">
+          <FontAwesomeIcon icon={faGoogle} className="google" /> Sign in with
+          Google
+        </Button>
+        <Button onClick={onSocialClick} name="github">
+          <FontAwesomeIcon icon={faGithub} className="github" />
+          Sign in with Github
+        </Button>
+      </ButtonContainer>
+    </AuthContainer>
   );
 }
 

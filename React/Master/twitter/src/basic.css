@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Noto+Serif+KR:wght@200&family=Roboto+Condensed:ital,wght@0,300;1,300&family=Roboto+Slab:wght@300&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #fae100;
+  font-size: 14px;
+  
+}
+
+.catIcon {
+  font-size: 100px;
+  padding-bottom: 50px;
+  color: #3b1e1e
+}
+
+.catIcon:hover {
+  transform: scale(1.2);
+  transition: transform 0.2s ease-in;
+
+}
+
+.github {
+  margin-right: 7px;
+}
