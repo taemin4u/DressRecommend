@@ -25,3 +25,9 @@ body {
 .github {
   margin-right: 7px;
 }
+
+.link {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
