@@ -3,6 +3,13 @@ import { useState } from 'react';
 import Tweet from '../components/Tweet';
 import { dbService } from '../fbase';
 import HomeForm from '../components/HomeForm';
+import styled from 'styled-components';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 function Auth({ userObj }) {
   const [tweetPile, setTweetPile] = useState([]);
@@ -36,7 +43,7 @@ function Auth({ userObj }) {
   // 위에서 여기처럼 일일이 배열을 새로 만들어 setTweetPile 해줘도 되지만, snapshot을 사용하면 렌더를 새로 생긴것만 해준다고함
 
   return (
-    <div>
+    <Container>
       <HomeForm userObj={userObj} />
       <div>
         {/* snapshot을 log 찍어보면 id 프로퍼티가 있음 */}
@@ -49,7 +56,7 @@ function Auth({ userObj }) {
           />
         ))}
       </div>
-    </div>
+    </Container>
   );
 }
 

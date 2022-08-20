@@ -4,13 +4,15 @@ import styled from 'styled-components';
 import '../basic.css';
 
 const Ul = styled.ul`
+  margin: 0 auto;
   list-style: none;
   text-align: center;
   width: 300px;
-  margin: 0 auto;
   color: white;
   margin-bottom: 20px;
   margin-top: 30px;
+  left: 30%;
+  padding: 0;
 `;
 
 const Li = styled.li`

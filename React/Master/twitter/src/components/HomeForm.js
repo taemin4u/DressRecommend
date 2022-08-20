@@ -2,6 +2,24 @@ import React, { useState } from 'react';
 import { getDownloadURL } from '@firebase/storage';
 import { dbService, storageService } from '../fbase';
 import { v4 as uuidv4 } from 'uuid'; // user id를 랜덤하게 생성
+import styled from 'styled-components';
+
+const FileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    text-align: center;
+  }
+`;
+
+const TextContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-evenly;
+`;
 
 function HomeForm({ userObj }) {
   const [myFile, setMyFile] = useState('');
@@ -48,22 +66,26 @@ function HomeForm({ userObj }) {
   };
   return (
     <form onSubmit={onSubmit}>
-      <input
-        type="text"
-        placeholder="What is on your mind?"
-        maxLength={120}
-        value={tweet}
-        onChange={onChange}
-      />
-      {/* 파일 첨부 */}
-      <input type="file" accept="image/*" onChange={onFileChange} />
-      <input type="submit" value="Tweet!" />
-      {myFile && (
-        <div>
-          <img src={myFile} alt="files" width="50px" height="50px" />
-          <button onClick={onClearPhoto}>Clear Photo</button>
-        </div>
-      )}
+      <TextContainer>
+        <input
+          type="text"
+          placeholder="What is on your mind?"
+          maxLength={120}
+          value={tweet}
+          onChange={onChange}
+        />
+        <input type="submit" value="Tweet!" />
+      </TextContainer>
+
+      <FileContainer>
+        <input type="file" accept="image/*" onChange={onFileChange} />
+        {myFile && (
+          <div>
+            <img src={myFile} alt="files" width="50px" height="50px" />
+            <button onClick={onClearPhoto}>Clear Photo</button>
+          </div>
+        )}
+      </FileContainer>
     </form>
   );
 }

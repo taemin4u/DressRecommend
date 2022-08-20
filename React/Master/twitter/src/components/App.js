@@ -22,7 +22,7 @@ function App() {
       }
       setInit(true);
     });
-  }, [userObj]); // 페이지가 시작될 때 한 번 실행
+  }, []); // 페이지가 시작될 때 한 번 실행
   console.log(userObj);
   return (
     <>

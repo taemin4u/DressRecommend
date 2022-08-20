@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { dbService, storageService } from '../fbase';
+
+const DivLine = styled.hr`
+  background-color: black;
+  border: 0;
+  height: 2px;
+`;
 
 function Tweet({ tweetObj, isOwner, email }) {
   if (!email) {
@@ -31,7 +38,6 @@ function Tweet({ tweetObj, isOwner, email }) {
     const value = e.target.value;
     setNewTweet(value);
   };
-  console.log(tweetObj);
   return (
     <div>
       {editing ? (
@@ -60,6 +66,7 @@ function Tweet({ tweetObj, isOwner, email }) {
             <>
               <button onClick={onDeleteClick}>Delete Tweet</button>
               <button onClick={toggleEditing}>Edit Tweet</button>
+              <DivLine></DivLine>
             </>
           )}
         </>
